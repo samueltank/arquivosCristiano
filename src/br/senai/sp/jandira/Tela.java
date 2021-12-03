@@ -4,15 +4,10 @@ package br.senai.sp.jandira;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JTextPane;
 import java.awt.Color;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
@@ -20,11 +15,14 @@ import java.awt.event.MouseListener;
 public class Tela extends JFrame {
 
     private JPanel contentPane;
+    private Arquivo arquivo;
+    private String caminho;
 
-    /**
-     * Launch the application.
-     */
-
+    // Bloco inicializador da classe:
+    {
+        this.arquivo = new Arquivo();
+        this.caminho = "C:\\Users\\21276436\\Documents\\Test\\aula.txt";
+    }
 
     /**
      * Create the frame.
@@ -64,24 +62,34 @@ public class Tela extends JFrame {
 
         JButton btnGravar = new JButton("GRAVAR");
         btnGravar.setBounds(77, 327, 162, 43);
+        btnGravar.setForeground(Color.black);
+        btnGravar.setBackground(Color.white);
         panel.add(btnGravar);
 
         JButton btnLimpar = new JButton("LIMPAR");
-        btnLimpar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
         btnLimpar.setBounds(358, 327, 162, 43);
+        btnLimpar.setForeground(Color.black);
+        btnLimpar.setBackground(Color.white);
         panel.add(btnLimpar);
 
         btnGravar.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                String caminho = "C:\\Users\\21276436\\Documents\\Test" +
-                        "\\aula.txt";
-                Arquivo arquivo = new Arquivo();
-                String conteudoArquivo = arquivo.ler(caminho);
-                conteudoArquivo += "\n" + txtpnInsert.getText();
-                arquivo.escrever(caminho, conteudoArquivo);
+                boolean result = false;
+                String conteudoArquivo = "";
+
+                conteudoArquivo = arquivo.ler(caminho);
+                conteudoArquivo += txtpnInsert.getText();
+                result = arquivo.escrever(caminho, conteudoArquivo);
+
+                if (result) {
+                    JOptionPane.showMessageDialog(null, "Dado gravado com " +
+                            "sucesso", "Dado gravado com sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Erro ao gravar dados", "Dado gravado com sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
                 txtpnInsert.setText(null);
             }
         });

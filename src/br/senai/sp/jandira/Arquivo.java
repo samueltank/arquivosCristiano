@@ -1,14 +1,13 @@
 package br.senai.sp.jandira;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Arquivo {
     public boolean escrever(String caminho, String conteudo) {
         try {
             FileWriter arquivo = new FileWriter(caminho);
             PrintWriter gravarArquivo = new PrintWriter(arquivo);
-            gravarArquivo.append(conteudo);
+            gravarArquivo.printf(conteudo, "\n");
             gravarArquivo.close();
             return true;
         } catch (IOException e) {
