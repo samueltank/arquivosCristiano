@@ -7,6 +7,7 @@ public class Arquivo {
         try {
             FileWriter arquivo = new FileWriter(caminho);
             PrintWriter gravarArquivo = new PrintWriter(arquivo);
+            /*gravarArquivo.append(conteudo);*/
             gravarArquivo.printf(conteudo, "\n");
             gravarArquivo.close();
             return true;
